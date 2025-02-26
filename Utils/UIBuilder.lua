@@ -208,7 +208,7 @@ function UIBuilder:NumericEditBox(frame, value, width, height, callback)
     end)
 
     editBox.button:ClearAllPoints()
-    editBox.button:SetPoint("BOTTOMRIGHT", editBox, "TOPRIGHT", 0, -4)
+    editBox.button:SetPoint("BOTTOMRIGHT", editBox, "TOPRIGHT", 0, 2)
 
     return editBox
 end
@@ -325,8 +325,8 @@ end
 function UIBuilder:Window(parent, width, height, title)
     local f = StdUi:Panel(parent, width, height)
     f.titleLabel = UIBuilder:Header(f, title, false)
-    f.titleLabel:SetFont(StdUi.config.font.family,20)
-    underline(f,f.titleLabel,435,0)
+    f.titleLabel:SetFont(StdUi.config.font.family,16)
+    underline(f,f.titleLabel,415,0)
 
     return f
 end

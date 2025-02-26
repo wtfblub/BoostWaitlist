@@ -59,6 +59,7 @@ local function eventHandler(self, event, arg1, arg2, ...)
     if (DB.active) then
       Main:HandleGroupRosterUpdate()
     end
+    GUI:RestoreShowState()
   elseif (event == "GROUP_ROSTER_UPDATE") then
     if (DB.active) then
       Main:HandleGroupRosterUpdate()
@@ -212,10 +213,12 @@ SlashCmdList["BOOSTWAITLIST"] = function(msg)
     elseif (cmd[1] == "enablewaitlist") then
       if (cmd[2] == "on") then
         DB.enableWaitlist = true
+        GUI:ShowWaitlist()
         print(L["waitlistEnabled"])
         used = 1
       elseif (cmd[2] == "off") then
         DB.enableWaitlist = false
+        GUI:HideWaitlist()
         print(L["waitlistDisabled"])
         used = 1
       end

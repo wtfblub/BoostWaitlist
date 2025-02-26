@@ -11,7 +11,7 @@ _G.BoostWaitlistDBDefaults = {
     enableSounds = false,
     inactivereply = false,
     enableBalanceWhisperThreshold = false,
-    enableWaitlist = true,
+    enableWaitlist = false,
     enableStats = true,
     everActive = true,
     autobill = true,
@@ -36,6 +36,7 @@ _G.BoostWaitlistDBDefaults = {
     minimap = {
       hide = false,
     },
+    wasOpen = false,
   },
   Options = {
     points = {"CENTER"},

@@ -294,7 +294,7 @@ end
 -- Main GUI creation
 
 function GUI:Create()
-  local frame = UIBuilder:Window(UIParent, 468, 400, addonName)
+  local frame = UIBuilder:Window(UIParent, 468, 380, addonName)
   frame:SetToplevel(true)
   frame:SetPoint(DB.GUI.points[1], DB.GUI.points[2], DB.GUI.points[3], DB.GUI.points[4], DB.GUI.points[5])
   frame:SetMovable(true)
@@ -309,6 +309,10 @@ function GUI:Create()
   end)
 
   frame.closeButton = UIBuilder:CloseButton(frame)
+  frame.closeButton:SetScript("OnClick", function()
+    frame:Hide()
+    DB.GUI.wasOpen = false
+  end)
 
   -- Header options
 
@@ -316,16 +320,16 @@ function GUI:Create()
   function(checked)
       DB.Main.autobill = checked
   end)
-  frame.auobillCheckbox:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -65)
+  frame.auobillCheckbox:SetPoint("TOPLEFT", frame, "TOPLEFT", 10, -45)
   frame.auobillCheckbox:SetChecked(DB.Main.autobill or false)
 
-  frame.chargeAllButton = UIBuilder:TextButton(frame, L["ChargeAll"], 100, 25, 
+  frame.chargeAllButton = UIBuilder:TextButton(frame, L["ChargeAll"], 100, 15, 
   function()
     Main:ChargeAll()
   end)
-  frame.chargeAllButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -63)
+  frame.chargeAllButton:SetPoint("TOPRIGHT", frame, "TOPRIGHT", -10, -50)
 
-  frame.defaultPrice = UIBuilder:NumericEditBox(frame, DB.Main.cost, 40, 25, 
+  frame.defaultPrice = UIBuilder:NumericEditBox(frame, DB.Main.cost, 40, 15, 
   function(v)
     DB.Main.cost = v
     GUI:Update()
@@ -344,7 +348,7 @@ function GUI:Create()
 
   -- player table
 
-  frame.playerTable = UIBuilder:Table(frame, playerTableCols, 4, 10, -113)
+  frame.playerTable = UIBuilder:Table(frame, playerTableCols, 4, 10, -93)
 
   -- waitlist
 
@@ -378,6 +382,7 @@ end
 function GUI:Show()
   GUI:Update(true)
   GUI.mainFrame:Show()
+  DB.GUI.wasOpen = true
 end
 
 
@@ -487,6 +492,12 @@ function GUI:Update(fullUpdate)
 
   frame.waitlistTable:SetData(waitlist)
   frame.waitlistTable:Refresh()
+
+  if DB.Main.enableWaitlist then
+    GUI:ShowWaitlist()
+  else
+    GUI:HideWaitlist()
+  end
 end
 
 function GUI:ShowPopupFrame(reason)
@@ -521,5 +532,23 @@ function GUI:HideMinimapIcon()
   DB.GUI.minimap.hide = true
   if (GUI.minimapButton ~= nil) then
     GUI.minimapButton:Hide("BoostWaitlist")
+  end
+end
+
+function GUI:ShowWaitlist()
+  GUI.mainFrame.waitlistTable:Show()
+  GUI.mainFrame.formingDropdown:Show()
+  GUI.mainFrame:SetSize(468, 380)
+end
+
+function GUI:HideWaitlist()
+  GUI.mainFrame.waitlistTable:Hide()
+  GUI.mainFrame.formingDropdown:Hide()
+  GUI.mainFrame:SetSize(468, 210)
+end
+
+function GUI:RestoreShowState()
+  if DB.GUI.wasOpen then
+    GUI:Show()
   end
 end

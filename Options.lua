@@ -75,6 +75,11 @@ function Options:GeneralShow()
     local enableWaitlist = UIBuilder:Checkbox(general, L["EWaitlist"], L["EWaitlistTT"],
     function(checked)
         DB.Main.enableWaitlist = checked
+        if checked then
+            GUI:ShowWaitlist()
+        else
+            GUI:HideWaitlist()
+        end
     end)
     enableWaitlist:SetPoint("TOPLEFT", enableSounds, "BOTTOMLEFT", 0, 0)
 
