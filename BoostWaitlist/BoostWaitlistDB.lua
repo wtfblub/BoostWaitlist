@@ -37,6 +37,7 @@ _G.BoostWaitlistDBDefaults = {
       hide = false,
     },
     wasOpen = false,
+    scale = 100,
   },
   Options = {
     points = {"CENTER"},

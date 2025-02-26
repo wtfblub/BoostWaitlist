@@ -55,6 +55,13 @@ function Options:GeneralShow()
     end)
     goldThreshold:SetPoint("TOPLEFT", enableBalanceWhisperThreshold, "BOTTOMLEFT", 0, -5)
 
+    local guiScale = UIBuilder:Slider(general, "GUI Scale", "Scale of the gui", 50, 100,
+    function(v)
+        DB.GUI.scale = v
+        GUI:Update()
+    end)
+    guiScale:SetPoint("TOPLEFT", goldThreshold, "BOTTOMLEFT", 0, -5)
+
     --
     -- Column 2
     --
@@ -99,6 +106,7 @@ function Options:GeneralShow()
         enableStats:SetChecked(DB.Main.enableStats or false)
         enableBalanceWhisperThreshold:SetChecked(DB.Main.enableBalanceWhisperThreshold or false)
         goldThreshold:SetValue(DB.Main.balanceWhisperThreshold)
+        guiScale:SetValue(DB.GUI.scale)
         enableAutobill:SetChecked(DB.Main.autobill or false)
         enableSounds:SetChecked(DB.Main.enableSounds or false)
         enableWaitlist:SetChecked(DB.Main.enableWaitlist or false)

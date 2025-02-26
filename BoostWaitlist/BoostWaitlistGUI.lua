@@ -373,7 +373,7 @@ function GUI:Create()
       Hide = function() frame:Hide() end,
       IsShown = function() return frame:IsShown() end
     }
-  tinsert(UISpecialFrames, addonName .. "MainFrame")
+  -- tinsert(UISpecialFrames, addonName .. "MainFrame")
 
   GUI.mainFrame = frame
   GUI:Update()
@@ -498,6 +498,9 @@ function GUI:Update(fullUpdate)
   else
     GUI:HideWaitlist()
   end
+
+  local scale = DB.GUI.scale or 100
+  frame:SetScale(scale / 100)
 end
 
 function GUI:ShowPopupFrame(reason)
